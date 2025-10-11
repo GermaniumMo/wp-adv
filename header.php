@@ -16,7 +16,12 @@
 <body>
 
     <header class="header text-center">
-	    <a class="site-title pt-lg-4 mb-0" href="index.html">SiteName.dev</a>
+	    <a class="site-title pt-lg-4 mb-0" href="index.html">
+            <?php
+                echo get_bloginfo('name');
+
+            ?>
+        </a>
 
 	    <nav class="navbar navbar-expand-lg navbar-dark" >
 
@@ -25,7 +30,13 @@
 			</button>
 
 			<div id="navigation" class="collapse navbar-collapse flex-column" >
-				<img class="mb-3 mx-auto logo" src="images/logo.png" alt="logo" >
+                <?php
+                    if (function_exists('the_custom_logo')) {
+                        $custom_logo_id = get_theme_mod('custom_logo');
+                        $logo           = wp_get_attachment_image_src($custom_logo_id, 'full');
+                    }
+                ?>
+				<img class="mb-3 mx-auto logo" src="<?php echo $logo[0] ?>" alt="logo" >
 
 				<?php
                     wp_nav_menu(
@@ -33,7 +44,6 @@
                             'menu'           => 'primary',
                             'container'      => '',
                             'theme_location' => 'primary',
-                            // Use our navbar classes so filters in functions.php can detect and inject classes
                             'menu_class'     => 'navbar-nav flex-column text-sm-center text-md-left',
                             'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
                         ]

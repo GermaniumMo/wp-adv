@@ -2,6 +2,8 @@
 function wp_adv_theme_support()
 {
     add_theme_support('title-tag');
+    add_theme_support('custom-logo');
+    add_theme_support('post-thumbnails');
 }
 add_action('after_setup_theme', 'wp_adv_theme_support');
 
@@ -73,7 +75,7 @@ function wp_adv_nav_menu_li_class($classes, $item, $args, $depth)
     // Only modify menus that use the navbar-nav class (our primary menu)
     if (isset($args->menu_class) && strpos($args->menu_class, 'navbar-nav') !== false) {
         // add bootstrap nav-item class
-        $classes[] = 'nav-item';
+        $classes[] = 'nav-item text-decoration-none';
 
         // map WP's current item classes to Bootstrap 'active'
         if (in_array('current-menu-item', $classes) || in_array('current_page_item', $classes)) {
